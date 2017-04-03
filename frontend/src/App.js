@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import NewNoteForm from './NewNoteForm';
 import axios from 'axios';
 import config from './config';
 
@@ -28,6 +29,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <NewNoteForm readNotes={() => {this.readNotes();}} />
             </div>
         );
     }
