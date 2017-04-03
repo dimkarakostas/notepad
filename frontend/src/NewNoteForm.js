@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import config from './config';
 
 export default class NewNoteForm extends Component {
     constructor(props) {
@@ -9,14 +11,29 @@ export default class NewNoteForm extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.addNote = this.addNote.bind(this);
     }
 
     handleChange(event) {
         this.setState({value: event.target.value});
     }
 
+    addNote() {
+        axios.post(config.BACKEND_URL + '/add', {
+            content: this.state.value
+        })
+        .then(res => {
+            console.log(res);
+            this.props.readNotes();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
     handleSubmit(event) {
         event.preventDefault();
+        this.addNote()
         this.setState({value: ''});
     }
 
