@@ -37,5 +37,15 @@ def add():
     return msg, 200
 
 
+@app.route('/read', methods=['GET'])
+def read():
+    '''
+    Get all notes
+    '''
+    logger.debug('Sending total notes: {}'.format(len(NOTES)))
+
+    return jsonify(**{'notes': NOTES}), 200
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=9000, debug=True)
