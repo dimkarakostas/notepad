@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TableRow from './TableRow';
 
 export default class TableBody extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ export default class TableBody extends Component {
 
     getTableRows() {
         return this.props.tableRows.map((note, index) => {
-            return '';
+            return <TableRow row={{note: note, index: index}} rowNotes={() => {this.props.bodyNotes();}} key={index} />;
         });
     }
 
