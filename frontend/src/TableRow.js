@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import axios from 'axios';
 import config from './config';
 
@@ -32,6 +33,9 @@ export default class TableRow extends Component {
                     </button>
                 </td>
                 <td>
+                    <CopyToClipboard text={this.props.row.note} onCopy={this.onCopy}>
+                        <button>Copy</button>
+                    </CopyToClipboard>
                 </td>
             </tr>
         );
