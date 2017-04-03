@@ -27,6 +27,9 @@ export default class TableRow extends Component {
                 <th scope="row">{this.props.row.index}</th>
                 <td>{this.props.row.note}</td>
                 <td>
+                    <button onClick={() => {this.deleteNote();}}>
+                        Delete
+                    </button>
                 </td>
                 <td>
                 </td>
