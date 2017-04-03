@@ -5,3 +5,7 @@
 .App form {
     padding: 20px;
 }
+
+.App table tr th {
+    text-align: center;
+}
