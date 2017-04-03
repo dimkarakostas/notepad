@@ -14,6 +14,28 @@ logger.addHandler(console_handler)
 
 app.config['SECRET_KEY'] = 'https://github.com/dimkarakostas/notepad.git'
 
+NOTES = []
+
+
+@app.route('/add', methods=['POST'])
+def add():
+    '''
+    Add a note
+
+    POST params: <str> content
+    '''
+    data = request.get_json()
+    note_content = data['content']
+
+    logger.debug('Adding note {}...'.format(note_content))
+
+    NOTES.append(note_content)
+
+    msg = 'Note {} was added.'.format(note_content)
+    logger.debug(msg)
+
+    return msg, 200
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=9000, debug=True)
