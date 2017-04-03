@@ -1,6 +1,7 @@
 import logging
 from flask import Flask, request, jsonify
 from flask.ext.cors import cross_origin
+import os
 
 app = Flask(__name__)
 
@@ -15,7 +16,7 @@ logger.addHandler(console_handler)
 
 app.config['SECRET_KEY'] = 'https://github.com/dimkarakostas/notepad.git'
 
-NOTES = []
+NOTES = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'notes.txt')
 
 
 @app.route('/add', methods=['POST'])
@@ -31,7 +32,11 @@ def add():
 
     logger.debug('Adding note {}...'.format(note_content))
 
-    NOTES.append(note_content)
+    with open(NOTES, 'r') as f:
+        notes = [n.strip('\n') for n in f.readlines()]
+    notes.append(note_content)
+    with open(NOTES, 'w') as f:
+        f.write('\n'.join(notes))
 
     msg = 'Note {} was added.'.format(note_content)
     logger.debug(msg)
@@ -45,9 +50,11 @@ def read():
     '''
     Get all notes
     '''
-    logger.debug('Sending total notes: {}'.format(len(NOTES)))
+    with open(NOTES, 'r') as f:
+        notes = [n.strip('\n') for n in f.readlines()]
+    logger.debug('Sending total notes: {}'.format(len(notes)))
 
-    return jsonify(**{'notes': NOTES}), 200
+    return jsonify(**{'notes': notes}), 200
 
 
 @app.route('/delete', methods=['POST'])
@@ -63,7 +70,11 @@ def delete():
 
     logger.debug('Deleting note {}...'.format(note_id))
 
-    del NOTES[note_id]
+    with open(NOTES, 'r') as f:
+        notes = [n.strip('\n') for n in f.readlines()]
+    del notes[note_id]
+    with open(NOTES, 'w') as f:
+        f.write('\n'.join(notes))
 
     msg = 'Note {} was deleted.'.format(note_id)
     logger.debug(msg)
