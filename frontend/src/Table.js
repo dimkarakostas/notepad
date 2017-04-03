@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TableBody from './TableBody';
 
 export default class Table extends Component {
     render() {
@@ -12,6 +13,7 @@ export default class Table extends Component {
                         <th className="col-md-1"></th>
                     </tr>
                 </thead>
+                <TableBody tableRows={this.props.notes} bodyNotes={() => {this.props.tableNotes();}} />
             </table>
         );
     }
