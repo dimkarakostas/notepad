@@ -47,5 +47,25 @@ def read():
     return jsonify(**{'notes': NOTES}), 200
 
 
+@app.route('/delete', methods=['POST'])
+def delete():
+    '''
+    Delete a note
+
+    POST params: <int> note_id
+    '''
+    data = request.get_json()
+    note_id = data['id']
+
+    logger.debug('Deleting note {}...'.format(note_id))
+
+    del NOTES[note_id]
+
+    msg = 'Note {} was deleted.'.format(note_id)
+    logger.debug(msg)
+
+    return msg, 200
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=9000, debug=True)
