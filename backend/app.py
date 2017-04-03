@@ -1,5 +1,6 @@
 import logging
 from flask import Flask, request, jsonify
+from flask.ext.cors import cross_origin
 
 app = Flask(__name__)
 
@@ -18,6 +19,7 @@ NOTES = []
 
 
 @app.route('/add', methods=['POST'])
+@cross_origin()
 def add():
     '''
     Add a note
@@ -38,6 +40,7 @@ def add():
 
 
 @app.route('/read', methods=['GET'])
+@cross_origin()
 def read():
     '''
     Get all notes
@@ -48,6 +51,7 @@ def read():
 
 
 @app.route('/delete', methods=['POST'])
+@cross_origin()
 def delete():
     '''
     Delete a note
