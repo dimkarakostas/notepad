@@ -23,7 +23,6 @@ export default class NewNoteForm extends Component {
             content: this.state.value
         })
         .then(res => {
-            console.log(res);
             this.props.readNotes();
         })
         .catch(function (error) {
@@ -40,7 +39,7 @@ export default class NewNoteForm extends Component {
     render() {
         return (
             <form className="form-inline" onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="Your note..." value={this.state.value} onChange={this.handleChange} />
+                <input type="text" autoFocus placeholder="Your note..." value={this.state.value} onChange={this.handleChange} />
                 <input type="submit" value="Submit" />
             </form>
         );

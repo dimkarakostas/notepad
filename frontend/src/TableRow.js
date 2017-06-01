@@ -7,6 +7,7 @@ export default class TableRow extends Component {
     constructor(props) {
         super(props);
         this.deleteNote = this.deleteNote.bind(this);
+        this.isLink = this.isLink.bind(this);
     }
 
     deleteNote() {
@@ -14,7 +15,6 @@ export default class TableRow extends Component {
             id: this.props.row.index
         })
         .then((res) => {
-            console.log(res);
             this.props.rowNotes();
         })
         .catch((error) => {
@@ -22,11 +22,21 @@ export default class TableRow extends Component {
         });
     }
 
+    isLink(note) {
+        var exp = /(^(https?|http|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])($(\S?))/ig;
+        return exp.test(note);
+    }
+
     render() {
         return (
             <tr>
                 <th scope="row">{this.props.row.index}</th>
-                <td>{this.props.row.note}</td>
+                <td>
+                    {this.isLink(this.props.row.note) ?
+                        <a href={this.props.row.note} target="_blank">{this.props.row.note}</a> :
+                        this.props.row.note
+                    }
+                </td>
                 <td>
                     <button onClick={() => {this.deleteNote();}}>
                         Delete
