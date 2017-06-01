@@ -19,7 +19,6 @@ class App extends Component {
     readNotes() {
         axios.get(config.BACKEND_URL + '/read')
         .then(res => {
-            console.log(res.data);
             this.setState({notes: res.data.notes});
         })
         .catch(function (error) {

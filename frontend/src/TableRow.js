@@ -15,7 +15,6 @@ export default class TableRow extends Component {
             id: this.props.row.index
         })
         .then((res) => {
-            console.log(res);
             this.props.rowNotes();
         })
         .catch((error) => {

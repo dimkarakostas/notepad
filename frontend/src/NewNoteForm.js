@@ -23,7 +23,6 @@ export default class NewNoteForm extends Component {
             content: this.state.value
         })
         .then(res => {
-            console.log(res);
             this.props.readNotes();
         })
         .catch(function (error) {
