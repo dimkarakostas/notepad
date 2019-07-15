@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import logging
 from flask import Flask, request, jsonify
 from flask.ext.cors import cross_origin
@@ -28,7 +30,7 @@ def add():
     POST params: <str> content
     '''
     data = request.get_json()
-    note_content = data['content']
+    note_content = data['content'].encode('utf-8')
 
     logger.debug('Adding note {}...'.format(note_content))
 
